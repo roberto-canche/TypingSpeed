@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <title>Typing Speed Feel</title>
+  <title>Create a Typing Speed Effect with VueJS</title>
   <style>
     .correct {color:rgb(63, 81, 181);font-size: 22px;}
     .typo {color: #FF0000; font-size: 22px;}
+    .timer {font-size: 100px; text-align: center;
+          color: white; border-radius: 100; background-color: green;}
   </style>
 </head>
 <body>
@@ -21,6 +23,11 @@
         </div>
         <div class="typer mt-3">
           <textarea v-model="typedText" class="form-control" rows="10" placeholder="Starting a type here"></textarea>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="timer">
+          60
         </div>
       </div>
     </div>

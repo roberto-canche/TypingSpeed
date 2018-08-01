@@ -1,0 +1,12 @@
+{
+  "name": "vuetyper",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "start": "httpster"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "httpster": "^1.0.3"
+  }
+}
