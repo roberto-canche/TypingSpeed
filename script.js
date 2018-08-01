@@ -18,13 +18,16 @@ new Vue({
         typoIndex: -1,
         timer: 60,
         typing: false,
-        timerInterval: {}
+        timerInterval: {},
+        typos: 0,
+        scores: []
     },
     methods: {
         startTimer: function() {
             this.timerInterval = setInterval( () => {
                 if(this.timer === 0) {
                     this.endTypingSpeed()
+                    this.calculateScore()
                     return
                 }
                 this.timer--
@@ -39,6 +42,7 @@ new Vue({
         // Al terminar de teclear cambiar valor de typing a false
         // blur en area a escribir
         endTypingSpeed: function() {
+            clearInterval(this.timerInterval)
             this.typing = false
             this.timer = 60
             document.activeElement.blur()
@@ -50,6 +54,22 @@ new Vue({
             this.typoIndex = -1
             this.typedText = ''
             this.timer = 60
+        },
+        calculateScore: function(){
+            let score = {}
+            let correctlyTypedText = this.typedText
+            if(this.typoIndex != -1) {
+                correctlyTypedText = this.originalText.substring(0, this.typoIndex)
+            }
+            let words = correctlyTypedText.split(' ').length
+            score = {
+                wpm: words,
+                typos: this.typos
+            }
+
+            // reset typos
+            this.typos = 0
+            this.scores.push(score)
         }
     },
     computed: {
@@ -73,6 +93,11 @@ new Vue({
             newHtml += this.originalText.substr(this.typedText.length)
 
             return newHtml
+        },
+        sortedScores: function() {
+            return this.scores.sort((a, b) => {
+                return a.wpm + a.typos - (b.wpm + b.typos);
+            })
         }
     },
     watch: {
@@ -83,6 +108,7 @@ new Vue({
             for (let i = 0; i < value.length; i++) {
                 if (value[i] !== this.originalText[i]) {
                     this.typoIndex = i
+                    this.typos++
                     break
                 }
                 this.typoIndex = -1

@@ -30,6 +30,12 @@
         <div class="timer">
           {{ timer }}
         </div>
+        <div class="scoreboard mt-3">
+            <h2>Scoreboard</h2>
+            <div class="scores">
+              <div class="alert-info mt-2" v-for="(score, index) in sortedScores">{{index + 1}}. {{score.wpm}} WPM, {{score.typos}} Typos </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>
